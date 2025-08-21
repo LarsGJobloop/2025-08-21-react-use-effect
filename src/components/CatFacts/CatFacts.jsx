@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react"
+
 const facts = [
   {
     "fact": "Unlike dogs, cats do not have a sweet tooth. Scientists believe this is due to a mutation in a key taste receptor.",
@@ -22,17 +24,36 @@ const facts = [
 ]
 
 export function CatFacts() {
+  const [ data, setData ] = useState()
 
+  const url = "https://catfact.ninja/facts?page=1"
+
+  useEffect(() => {
+    async function getFacts() {
+      const response = await fetch(url)
+      const responseData = await response.json()
+      console.log(responseData.data)
+      setData(responseData)
+    }
+    getFacts()
+  }, [])
 
   return (
     <div>
       <p>Cat Facts:</p>
       <ul>
-        {facts.map((fact, index) => {
-          return (
-            <li key={index}>{fact.fact}</li>
-          )
-        })}
+        {
+          // If we haven't gotten a response
+          // show loading
+          !data ? <p>Loading</p>
+          // If we have a response
+          // show the list of facts
+          : facts.map((fact, index) => {
+              return (
+                <li key={index}>{fact.fact}</li>
+              )
+          })
+        }
       </ul>
     </div>
   )
