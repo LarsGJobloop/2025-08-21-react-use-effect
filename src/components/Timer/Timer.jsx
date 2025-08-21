@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export function Timer() {
   // Keeps track of seconds
@@ -9,10 +9,13 @@ export function Timer() {
   const seconds = time % 60
 
   function tick() {
+    console.log(time)
     setTime((oldTime) => oldTime + 1)
   }
 
-  setInterval(tick, 1000)
+  useEffect(() => {
+    setInterval(tick, 1000)
+  }, [])
 
   return (
     <div>
