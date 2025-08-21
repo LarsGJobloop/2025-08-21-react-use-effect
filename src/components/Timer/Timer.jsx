@@ -12,6 +12,8 @@ export function Timer() {
     setTime((oldTime) => oldTime + 1)
   }
 
+  setInterval(tick, 1000)
+
   return (
     <div>
       <p>
