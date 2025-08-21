@@ -9,12 +9,21 @@ export function Timer() {
   const seconds = time % 60
 
   function tick() {
-    console.log(time)
+    console.log("Calling setTime")
     setTime((oldTime) => oldTime + 1)
   }
 
+  console.log("Rendering the component")
+  
   useEffect(() => {
-    setInterval(tick, 1000)
+    console.log("Running the effect")
+    const intervalId = setInterval(tick, 1000)
+
+    // Cleanup function
+    return () => {
+      console.log("Unmounting the component")
+      clearInterval(intervalId)
+    }
   }, [])
 
   return (
