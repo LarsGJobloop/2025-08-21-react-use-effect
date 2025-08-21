@@ -1,13 +1,9 @@
-import { useState } from 'react'
 import './App.css'
 import { Timer } from './components/Timer/Timer'
+import { useToggle } from './hooks/useToggle/useToggle'
 
 function App() {
-  const [show, setShow] = useState(true)
-
-  function toggle() {
-    setShow((previousState) => !previousState)
-  }
+  const { state, toggle } = useToggle(true)
 
   return (
     <main>
@@ -23,7 +19,7 @@ function App() {
           <div>
             <button onClick={toggle}>Toggle</button>
             {
-              show &&
+              state &&
               <Timer />
             }
           </div>
