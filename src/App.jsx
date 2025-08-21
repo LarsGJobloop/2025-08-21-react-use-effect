@@ -1,4 +1,5 @@
 import './App.css'
+import { CatFacts } from './components/CatFacts/CatFacts'
 import { Timer } from './components/Timer/Timer'
 import { useToggle } from './hooks/useToggle/useToggle'
 
@@ -24,6 +25,11 @@ function App() {
             }
           </div>
         </div>
+      </section>
+
+      <section>
+        <h2>Fetch Example</h2>
+        <CatFacts />
       </section>
     </main>
   )
