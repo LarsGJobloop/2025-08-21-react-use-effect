@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react"
 
-export function CatFacts() {
-  const [ data, setData ] = useState()
-
-  const url = "https://catfact.ninja/facts?page=1"
+function useGetJson(url) {
+  const [ json, setJson ] = useState(null)
 
   useEffect(() => {
-    async function getFacts() {
+    async function getJson() {
       const response = await fetch(url)
       const responseData = await response.json()
-      console.log(responseData.data)
-      setData(responseData.data)
+      console.log(responseData)
+      setJson(responseData)
     }
-    getFacts()
+    getJson()
   }, [])
+
+  return {
+    json
+  }
+}
+
+export function CatFacts() {
+  const url = "https://catfact.ninja/facts?page=1"
+  const { json } = useGetJson(url)
+
+  const facts = json?.data
 
   return (
     <div>
@@ -22,10 +31,10 @@ export function CatFacts() {
         {
           // If we haven't gotten a response
           // show loading
-          !data ? <p>Loading</p>
+          !facts ? <p>Loading</p>
           // If we have a response
           // show the list of facts
-          : data.map((fact, index) => {
+          : facts.map((fact, index) => {
               return (
                 <li key={index}>{fact.fact}</li>
               )
