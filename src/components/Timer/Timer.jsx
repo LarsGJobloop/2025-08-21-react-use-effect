@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react"
 
-export function Timer() {
+function useTime() {
   // Keeps track of seconds
   const [time, setTime] = useState(0)
-
-  const hours = Math.floor(time / 3600)
-  const minutes = Math.floor((time % 3600) / 60)
-  const seconds = time % 60
 
   function tick() {
     console.log("Calling setTime")
@@ -25,6 +21,19 @@ export function Timer() {
       clearInterval(intervalId)
     }
   }, [])
+
+  return {
+    time,
+    tick
+  }
+}
+
+export function Timer() {
+  const { time, tick } = useTime()
+
+  const hours = Math.floor(time / 3600)
+  const minutes = Math.floor((time % 3600) / 60)
+  const seconds = time % 60
 
   return (
     <div>
